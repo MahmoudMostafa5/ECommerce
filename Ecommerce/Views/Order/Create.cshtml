@@ -1,0 +1,29 @@
+﻿@model Ecommerce.BLL.Models.OrderVM
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<form asp-controller="Order" asp-action="Create">
+    <input type="hidden" asp-for="id" />
+
+    <label>Enter Order List</label>
+    <input asp-for="OrderTime" class="form-control my-2" />
+
+    <select asp-for="CusId" asp-items="(SelectList)ViewBag.cust">
+        <option value="default" disabled>Choose Customer</option>
+    </select>
+
+    <div class="form-group" data-select2-id="7">
+        <label>Select Products</label>
+        <select asp-for="ProductsId" class="custom-select2 form-control select2-hidden-accessible" multiple="" style="width: 100%;" data-select2-id="4" tabindex="-1" aria-hidden="true" asp-items="(SelectList)ViewBag.prod">
+        </select>
+        @*<span class="select2 select2-container select2-container--default select2-container--below" dir="ltr" data-select2-id="5" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1"><ul class="select2-selection__rendered"><li class="select2-selection__choice" title="Hawaii" data-select2-id="42"><span class="select2-selection__choice__remove" role="presentation">×</span>Hawaii</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="textbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>*@
+    </div>
+
+    <button type="submit">Add Order</button>
+
+</form>

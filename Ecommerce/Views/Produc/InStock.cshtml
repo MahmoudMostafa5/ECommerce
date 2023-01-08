@@ -1,0 +1,100 @@
+﻿@*@{
+        ViewData["Title"] = "InStock";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+    <h1>InStock</h1>
+    <select asp-items="ViewBag.prod" id="prodId">
+        <option selected disabled hidden>Choose Product</option>
+    </select>
+
+    <button class="btn btn-primary" type="submit" id="CstBtn">Check</button>
+    <div id="Value"></div>
+
+    <script src="~/src/scripts/jquery.min.js"></script>
+    <script>
+
+        $(function () {
+            $("#CstBtn").click(function () {
+
+                var ProductId = $("#prodId").val();
+                $("#Value").empty();
+                // debugger;
+                $.ajax(
+                    {
+                        type: "POST",
+                        url: "/Order/InStock/",
+                        data: { id: ProductId },
+                        success: function (res) {
+
+                            //$.each(res, function (i, e) {
+                                $("#Value").append("<h4>" + res + "</h4>");
+                            //});
+
+                        }
+                    });
+            });
+        });
+
+
+
+
+
+    </script>*@
+
+@{
+    ViewData["Title"] = "InStock";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>InStock</h1>
+<select asp-items="ViewBag.prod" id="prodId">
+    <option disabled selected hidden>Choose product</option>
+</select>
+<button class="btn btn-primary" type="submit" id="CstBtn">Check</button>
+
+<div id="Value"></div>
+
+<script src="~/src/scripts/jquery.min.js"></script>
+<script>
+
+
+    $(function () {
+        $("#CstBtn").click(function () {
+
+
+            var ProductId = $("#prodId").val();
+            $("#Value").empty();
+            // debugger;
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Produc/InStock/",
+                    data: { id: ProductId },
+                    success: function (res) {
+
+
+
+                        $("#Value").append("<h4>" + res + "</h4>");
+                    }
+
+                });
+
+
+
+        }
+
+
+        );
+
+
+
+    }
+    );
+
+
+
+
+
+
+</script>

@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Ecommerce.BLL</id>
+    <version>1.0.0</version>
+    <authors>Ecommerce.BLL</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework="net5.0">
+        <dependency id="Ecommerce.DAL" version="1.0.0" exclude="Build,Analyzers" />
+        <dependency id="AutoMapper" version="10.1.1" exclude="Build,Analyzers" />
+        <dependency id="AutoMapper.Extensions.Microsoft.DependencyInjection" version="8.1.1" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Http.Features" version="5.0.7" exclude="Build,Analyzers" />
+        <dependency id="Microsoft.AspNetCore.Identity.EntityFrameworkCore" version="5.0.2" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\AGYAL\source\repos\Ecommerce\Ecommerce.BLL\bin\Release\net5.0\Ecommerce.BLL.dll" target="lib\net5.0\Ecommerce.BLL.dll" />
+  </files>
+</package>

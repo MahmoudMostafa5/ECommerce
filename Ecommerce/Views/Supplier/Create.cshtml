@@ -1,0 +1,94 @@
+﻿@model Ecommerce.BLL.Models.SupplierVM
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<div asp-validation-summary="All"></div>
+<form asp-action="create" asp-controller="Supplier">
+
+    <input type="hidden" asp-for="id" />
+
+    <div class="form-group row">
+        @*<label asp-for="name" class="col-sm-12 col-md-2 col-form-label">name</label>*@
+        <div class="col-sm-12 col-md-12">
+            <input class="form-control" type="text" placeholder="Enter Your Name" asp-for="name">
+            <span asp-validation-for="name" class="alert-danger"></span>
+        </div>
+    </div>
+
+    <select class="form-control form-group" id="Country" asp-items="ViewBag.countries">
+        <option class="form-control" value="default">Choose Country</option>
+    </select>
+
+    <select class="form-control form-group" id="City">
+        <option class="form-control" value="default">Choose City</option>
+    </select>
+
+    <select class="form-control form-group" id="District" asp-for="DistrictId">
+        <option class="form-control" value="default">Choose District</option>
+    </select>
+
+    <div class="form-group row">
+        <label asp-for="name" class="h1 text-center col-sm-12 col-md-2 col-form-label">Upload Photo</label>
+        <div class="col-sm-12 col-md-10">
+            <input class="form-control" asp-for="Photo" type="file">
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label asp-for="name" class="h1 text-center col-sm-12 col-md-2 col-form-label">Upload File</label>
+        <div class="col-sm-12 col-md-10">
+            <input class="form-control" asp-for="File" type="file">
+        </div>
+    </div>
+
+    <button class="btn btn-outline-success" type="submit">ADD</button><br /><br />
+
+
+</form>
+
+<script src="~/src/scripts/jquery.min.js"></script>
+<script>
+    $("#Country").change(function () {
+
+        var cotId = $("#Country").val();
+
+        $("#City").empty();
+
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Supplier/getCities/?id=cotId",
+                data: { id: cotId },
+                success: function (res) {
+                    $.each(res, function (i, e) {
+                        $("#City").append("<option value=" + e.id + "> " + e.name + "</option>")
+                    })
+                }
+            })
+    })
+
+    $("#City").change(function () {
+
+        var cityId = $("#City").val();
+        $("#District").empty();
+
+
+        $.ajax(
+            {
+                type: "POST",
+                url: "/Supplier/getDistricts/?id=cityId",
+                data: { id: cityId },
+                success: function (res) {
+                    $.each(res, function (i, e) {
+                        $("#District").append("<option value=" + e.id + "> " + e.name + "</option>")
+                    })
+                }
+            })
+    })
+
+</script>

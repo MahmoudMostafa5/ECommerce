@@ -1,0 +1,172 @@
+﻿@*@model IEnumerable<Ecommerce.BLL.Models.OrderVM>
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+
+    <div class="card-box mb-30">
+        <br />
+        <center>
+            <a class="btn btn-outline-info btn-lg" asp-controller="Order" asp-action="Create">Add New Order</a>
+            <a class="btn btn-outline-info btn-lg" id="ordBtn">Count Orders</a>
+        </center>
+        <div id="value"></div>
+        <h2 class="h4 pd-20">All Products</h2>
+        <table class="data-table table nowrap">
+            <thead>
+                <tr>
+                    <th>Order Time</th>
+                    <th>Customer Name</th>
+                    <th>Customer Phone</th>
+                    <th>Products</th>
+                    <th class="datatable-nosort">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @foreach (var item in Model)
+                {
+                    <tr>
+
+                        <td>
+                            <h5 class="font-16">@(item.OrderTime)</h5>
+                        </td>
+                        <td>@(item.Customer.name)</td>
+                        <td>@(item.Customer.phone)</td>
+                        <td>
+                            @foreach (var i in item.orderProducts)
+                            {
+                                <h6>@i.product.name</h6>
+                            }
+                        </td>
+                        <td>
+                            <div class="dropdown">
+                                <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                    <i class="dw dw-more"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                    <a class="dropdown-item" asp-controller="Order" asp-action="Details" asp-route-id="@(item.id)"><i class="dw dw-eye"></i> View</a>
+                                    <a class="dropdown-item" asp-controller="Order" asp-action="Delete" asp-route-id="@(item.id)"><i class="dw dw-delete-3"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                }
+
+        </table>
+    </div>
+
+    <script src="~/src/scripts/jquery.min.js"></script>
+
+    <script>
+
+        $("#ordBtn").click(function () {
+
+            $("#value").empty()
+
+            $.ajax(
+                {
+                    type: "POST",
+                    url: "/Order/Count/",
+                    data: { },
+                    success: function (res) {
+
+                        $.each(res, function (i, e) {
+                            $("#value").append("<h4>" + res + "</h4>");
+                        });
+
+                    }
+                });
+        })
+    </script>*@
+@model IEnumerable<Ecommerce.BLL.Models.OrderVM>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>All Orders</h1>
+<div class="card-box mb-30">
+    <br />
+    <center>
+        <a class="btn btn-outline-info btn-lg" asp-controller="Order" asp-action="Create">Add New Order</a>
+        <a class="btn btn-outline-info btn-lg" id="Orderbtn">Count Orders</a>
+    </center>
+    <div id="value"></div>
+
+    <h2 class="h4 pd-20">All Orders</h2>
+    <table class="data-table table nowrap">
+        <thead>
+            <tr>
+
+                <th>Order Time</th>
+                <th>Customer Name</th>
+                <th>Customer Phone</th>
+                <th>Products</th>
+
+                <th class="datatable-nosort">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+
+                    <td>
+                        <h5 class="font-16">@item.OrderTime</h5>
+
+                    </td>
+                    <td>@item.Customer.name</td>
+                    <td>@item.Customer.phone</td>
+                    <td>
+                        @foreach (var i in @item.orderProducts)
+                        {
+                            <span>  / @i.product.name </span>
+
+                        }
+
+
+                    </td>
+
+                    <td>
+                        <div class="dropdown">
+                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                <i class="dw dw-more"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                <a class="dropdown-item" asp-controller="Order" asp-action="Details" asp-route-id="@item.id"><i class="dw dw-eye"></i> View</a>
+                                <a class="dropdown-item" asp-controller="Order" asp-action="Delete" asp-route-id="@item.id"><i class="dw dw-delete-3"></i> Delete</a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+
+
+        </tbody>
+    </table>
+</div>
+<script src="~/src/scripts/jquery.min.js"></script>
+
+<script>
+    $("#Orderbtn").click(function () {
+
+        $("#value").empty();
+        $.ajax({
+            type: "POST",
+            url: "/Order/Count/",
+            data: {},
+            success: function (res) {
+
+                $("#value").append("<h6>" + res + "</h6>");
+
+            }
+
+
+        });
+
+    });
+</script>
+
+
